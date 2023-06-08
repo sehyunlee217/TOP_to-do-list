@@ -1,3 +1,8 @@
+function popSidebar() {
+    // if display:sidebar is false
+    // buildSidebar() 
+}
+
 function buildNavbar() {
     console.log("navbar");
 
@@ -10,10 +15,17 @@ function buildNavbar() {
 
     // button to toggle sidebar on the left
     const sidebarBtn = document.createElement("button");
-    sidebarBtn.classList.add("sidebar_btn");
-    sidebarBtn.textContent = "sidebar";
-    // event listener to toggle sidebar btn
+    sidebarBtn.classList.add("sidebar_btn", "px-1.5", "rounded-sm", "hover:bg-sky-700");
 
+    // add icon to sidebar btn
+    const sidebarIcon = document.createElement("i");
+    sidebarIcon.classList.add("fa-solid", "fa-bars");
+    sidebarBtn.appendChild(sidebarIcon);
+
+    // add event listener to toggle sidebar btn
+    sidebarBtn.addEventListener("click", popSidebar);
+
+    // Add sidebar to the nav bar
     navbar.appendChild(sidebarBtn);
 
     // To-Do list Title on the right
