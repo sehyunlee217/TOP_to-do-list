@@ -1,8 +1,9 @@
 import "./main.css";
 
 import buildNavbar from "./pages/buildNavbar";
-import buildSidebar from "./pages/buildSidebar";
+import displaySidebar from "./pages/buildSidebar";
+import buildContent from "./pages/buildContent";
 
 
-buildNavbar();
-buildSidebar();
+buildNavbar(displaySidebar());
+buildContent();

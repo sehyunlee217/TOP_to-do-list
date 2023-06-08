@@ -1,14 +1,12 @@
+import displaySidebar from "./buildSidebar";
+
 function popSidebar() {
-    // if display:sidebar is false
-    // buildSidebar() 
+    console.log("pop sidebar");
+    displaySidebar();
 }
 
 function buildNavbar() {
-    console.log("navbar");
-
     const bodyLoc = document.getElementById("header");
-    console.log(bodyLoc);
-
     // create navbar
     const navbar = document.createElement("div");
     navbar.classList.add("navbar_container");

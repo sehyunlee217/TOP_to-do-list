@@ -1,14 +1,14 @@
 function buildSidebar() {
     const containerLoc = document.getElementById("container");
-    console.log(containerLoc);
 
     // basic structure
     const sidebarContainer = document.createElement("div");
-    sidebarContainer.classList.add("flex", "w-1/5", "flex-col", "p-2", "px-6", "justify-center", "items-start");
+    sidebarContainer.setAttribute("id", "sidebar");
+    sidebarContainer.classList.add("w-full", "flex", "flex-wrap", "flex-col", "p-2", "px-6", "justify-center", "items-start");
     containerLoc.appendChild(sidebarContainer);
     // ------------ home ---------------
     const sidebarHome = document.createElement("div");
-    sidebarHome.classList.add("flex", "flex-col", "text-xl", "font-semibold", "text-gray-600");
+    sidebarHome.classList.add("w-full", "flex", "flex-col", "text-xl", "font-semibold", "text-gray-600");
     sidebarContainer.appendChild(sidebarHome);
 
     const homeTxt = document.createElement("div");
@@ -40,10 +40,38 @@ function buildSidebar() {
 
     // ------------ groups ---------------
     const sidebarGroups = document.createElement("div");
-    sidebarGroups.classList.add("flex", "text-xl", "font-semibold", "text-gray-600");
-    sidebarGroups.textContent = "Groups";
+    sidebarGroups.classList.add("w-full", "flex", "flex-col", "text-xl", "font-semibold", "text-gray-600");
     sidebarContainer.appendChild(sidebarGroups);
-    // + Add group
+
+    // groups text
+    const groupsTxt = document.createElement("div");
+    groupsTxt.textContent = "Groups";
+    groupsTxt.classList.add("p-1");
+    sidebarGroups.appendChild(groupsTxt);
+
+    // new groups
+    const newGroups = document.createElement("div");
+    sidebarGroups.appendChild(newGroups);
+    newGroups.classList.add("flex", "flex-col", "p-2", "gap-2", "text-sm", "font-light", "border-t-2", "border-sky-700");
+
 }
 
-export default buildSidebar;
+function displaySidebar() {
+    const containerLoc = document.getElementById("container");
+
+    // if there is not sidebar, create sidebar
+    if (containerLoc.childElementCount == 0) {
+        buildSidebar();
+    }
+    else {
+        const sidebarLoc = document.getElementById("sidebar");
+        if (sidebarLoc.style.display == "none") {
+            sidebarLoc.style.display = "flex";
+        }
+        else {
+            sidebarLoc.style.display = "none";
+        }
+    }
+}
+
+export default displaySidebar;
