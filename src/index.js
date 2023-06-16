@@ -1,9 +1,4 @@
-import "./main.css";
+import "./styles/skeleton.css";
+import toggleMenu from "./pages/toggleMenu";
 
-import buildNavbar from "./pages/buildNavbar";
-import displaySidebar from "./pages/buildSidebar";
-import buildContent from "./pages/buildContent";
-
-
-buildNavbar(displaySidebar());
-buildContent();
+toggleMenu();
