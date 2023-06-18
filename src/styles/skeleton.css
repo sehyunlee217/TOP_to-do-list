@@ -427,12 +427,16 @@
   
   /* -------- Adjustments --------- */
 
+    body{
+      text-transform: uppercase;
+      letter-spacing: .1rem;
+    }
+
   #header{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem;
-
     background-color: rgb(145, 200, 232) ;
   }
 
@@ -444,26 +448,39 @@
 
   #content{
     display: flex;
-    flex-direction: row-reverse;
     flex-wrap: wrap;
     background-color: rgba(128, 128, 128, 0.3);
     height: 100%;
   }
 
+  /* .break{
+    flex-basis: 100%;
+    height: 0;
+  } */
+
   #sidebar{
-    font-family: inherit;
+    order: 1;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 10rem;
     gap: 0.5em;
     background-color: white;
-
-    min-width: 200px;
     padding: 1em;
+    min-width: 150px;
   }
 
   #tasks{
+    order: 2;
+    min-inline-size: 80%;
     display: flex;
-    flex: 1;
+    flex-grow: 99;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 60%;
+  }
+
+  .task_content{
   }
 
   .title-m{
