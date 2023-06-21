@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link href="/favicon.ico" type="image/x-icon" rel="icon" />
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
@@ -17,7 +18,11 @@
     </div>
     <div id="content">
       <div id="tasks">
-        <div class="task_content">GROUP NAME</div>
+        <div class="task-content">GROUP NAME</div>
+        <div class="task-list">
+          <div id="formContainer"></div>
+        </div>
+        <div class="add-task-btn">+ Add Task</div>
       </div>
     </div>
   </body>

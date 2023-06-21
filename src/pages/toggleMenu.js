@@ -1,5 +1,4 @@
 function isDisplay() {
-    console.log("isDisplay");
     // checks if sidebar is displaying or not
     const contentLoc = document.getElementById("content");
     const sidebarLoc = document.getElementById("sidebar");
@@ -65,13 +64,15 @@ function buildSidebar() {
 
     // new groups
     const newGroups = document.createElement("div");
+    newGroups.textContent = "+ Add Group";
+    newGroups.classList.add("add-newgroup");
     sidebarGroups.appendChild(newGroups);
-    sidebarGroups.classList.add("list-items");
 
     // Add a new group 
     const addGroup = document.createElement("div");
-    addGroup.textContent = "New Group";
     sidebarGroups.appendChild(addGroup);
+    addGroup.classList.add("list-items");
+
 }
 
 function generateMenu() {
