@@ -1,5 +1,27 @@
 import { add } from "date-fns";
 
+function showForm(bool) {
+    // always display add task form when clicked
+    const displayTaskList = document.querySelector(".task-list");
+    const addTaskBtn = document.querySelector(".add-task-btn");
+
+    if (bool) {
+        displayTaskList.style.display = "block";
+        addTaskBtn.style.display = "none";
+    }
+    else {
+        displayTaskList.style.display = "none";
+        addTaskBtn.style.display = "block";
+    }
+}
+
+
+function storeData(obj) {
+    // local storage can only store data as a string
+    let dataObjstr = JSON.stringify(obj);
+    localStorage.setItem(obj.title, dataObjstr);
+}
+
 function readFormdata() {
     const titleInput = document.getElementById("title-input");
     const titleData = titleInput.value;
@@ -10,10 +32,18 @@ function readFormdata() {
     const dateInput = document.getElementById("date-input");
     const dateData = dateInput.value;
 
-    console.log(titleData, contentData, dateData);
+    const dataObj = {
+        "title": titleData,
+        "content": contentData,
+        "date": dateData
+    };
+
+    storeData(dataObj);
 }
 
 function addTask() {
+    showForm(true);
+
     const taskListloc = document.getElementById("formContainer");
 
     // can only add one task at a time.
@@ -68,6 +98,12 @@ function addTask() {
         cancelBtn.setAttribute("id", "cancelBtn");
         cancelBtn.textContent = "Cancel";
 
+
+        // hide add task bar when cancel is clicked
+        cancelBtn.addEventListener("click", (e) => {
+            showForm(false);
+        });
+
         // append elements to form
         taskForm.appendChild(titleLabel);
         taskForm.appendChild(titleInput);
@@ -86,21 +122,25 @@ function addTask() {
         taskListloc.appendChild(taskForm);
     }
 
+    // Actions when form is submitted
     const form = document.getElementById("taskForm");
-
     form.addEventListener("submit", (e) => {
+        // prevent form from submitting and reseting page
         e.preventDefault();
+        // read data and store it in local storage api
         readFormdata();
-    });
+        // reset form once data is submitted
+        form.reset();
+        // hide form
+        showForm(false);
 
+    });
 
 }
 
 function addTaskList() {
     const addTaskBtn = document.querySelector(".add-task-btn");
     addTaskBtn.addEventListener("click", addTask);
-
-
 }
 
 export default addTaskList;
