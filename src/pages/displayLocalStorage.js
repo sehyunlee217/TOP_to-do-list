@@ -10,7 +10,7 @@ function readLocalstorage() {
 
 function createTaskelemenet(obj) {
     // display data as blocks as content
-    const taskloc = document.getElementById("tasks");
+    const taskloc = document.querySelector(".task-list");
 
     const taskItem = document.createElement("div");
     taskItem.classList.add("add-task-btn");
@@ -36,3 +36,12 @@ function createTaskelemenet(obj) {
 }
 
 export default readLocalstorage;
+
+// i) move task items to task list. 
+// tasks
+// task-content
+// tasklist > task items
+// formContainer
+// add task button
+
+// flex-wrap task list

@@ -41,10 +41,10 @@ function readFormdata() {
     storeData(dataObj);
 }
 
-function addTask() {
-    showForm(true);
+function addForm1() {
+    // showForm(true);
 
-    const taskListloc = document.getElementById("formContainer");
+    const taskListloc = document.getElementById("tasks");
 
     // can only add one task at a time.
     if (!taskListloc.hasChildNodes()) {
@@ -62,7 +62,6 @@ function addTask() {
         titleInput.setAttribute("type", "text");
         titleInput.setAttribute("name", "title");
         titleInput.setAttribute("id", "title-input");
-
 
         // Content to add task
         const contentLabel = document.createElement("label");
@@ -99,10 +98,10 @@ function addTask() {
         cancelBtn.textContent = "Cancel";
 
 
-        // hide add task bar when cancel is clicked
-        cancelBtn.addEventListener("click", (e) => {
-            showForm(false);
-        });
+        // hide add task bar when cancel is clicked;
+        // cancelBtn.addEventListener("click", (e) => {
+        //     showForm(false);
+        // });
 
         // append elements to form
         taskForm.appendChild(titleLabel);
@@ -123,24 +122,99 @@ function addTask() {
     }
 
     // Actions when form is submitted
-    const form = document.getElementById("taskForm");
-    form.addEventListener("submit", (e) => {
-        // prevent form from submitting and reseting page
-        e.preventDefault();
-        // read data and store it in local storage api
-        readFormdata();
-        // reset form once data is submitted
-        form.reset();
-        // hide form
-        showForm(false);
+    // const form = document.getElementById("taskForm");
 
-    });
+    // form.addEventListener("submit", (e) => {
+    //     // prevent form from submitting and reseting page
+    //     e.preventDefault();
+    //     // read data and store it in local storage api
+    //     readFormdata();
+    //     // reset form once data is submitted 
+    //     form.reset();
+    //     // hide form
+    //     // showForm(false);
+
+    // });
 
 }
 
-function addTaskList() {
+
+function addForm() {
+    const formLoc = document.getElementById("formContainer");
+
+    // if form is not initialized, build form
+    if (!formLoc.hasChildNodes()) {
+        // Create form to add task
+        const taskForm = document.createElement("form");
+        taskForm.setAttribute("id", "taskForm");
+
+        // Title to add task
+        const titleLabel = document.createElement("label");
+        titleLabel.textContent = "Title: ";
+
+        const titleInput = document.createElement("input");
+        titleInput.setAttribute("type", "text");
+        titleInput.setAttribute("name", "title");
+        titleInput.setAttribute("id", "title-input");
+
+        // Content to add task
+        const contentLabel = document.createElement("label");
+        contentLabel.textContent = "Content: ";
+
+        const contentInput = document.createElement("input");
+        contentInput.setAttribute("type", "text");
+        contentInput.setAttribute("name", "content");
+        contentInput.setAttribute("id", "content-input");
+
+        // Date Selection
+        const dateLabel = document.createElement("label");
+        dateLabel.textContent = "Date: ";
+
+        const dateInput = document.createElement("input");
+        dateInput.setAttribute("type", "date");
+        dateInput.setAttribute("name", "date");
+        dateInput.setAttribute("id", "date-input");
+
+        // Button Container
+        const btnContainer = document.createElement("div");
+        btnContainer.classList.add("btn-container");
+
+        // Add Button
+        const addBtn = document.createElement("button");
+        addBtn.setAttribute("type", "submit");
+        addBtn.setAttribute("id", "submitBtn");
+        addBtn.textContent = "Add";
+
+        // Cancel Button
+        const cancelBtn = document.createElement("button");
+        cancelBtn.setAttribute("type", "button");
+        cancelBtn.setAttribute("id", "cancelBtn");
+        cancelBtn.textContent = "Cancel";
+
+        // append elements to form
+        taskForm.appendChild(titleLabel);
+        taskForm.appendChild(titleInput);
+
+        taskForm.appendChild(contentLabel);
+        taskForm.appendChild(contentInput);
+
+        taskForm.appendChild(dateLabel);
+        taskForm.appendChild(dateInput);
+
+        btnContainer.appendChild(addBtn);
+        btnContainer.appendChild(cancelBtn);
+
+        taskForm.appendChild(btnContainer);
+
+        // append form to formContainer
+        formLoc.appendChild(taskForm);
+
+    }
+}
+
+function addTask() {
     const addTaskBtn = document.querySelector(".add-task-btn");
-    addTaskBtn.addEventListener("click", addTask);
+    addTaskBtn.addEventListener("click", addForm);
 }
 
-export default addTaskList;
+export default addTask;
