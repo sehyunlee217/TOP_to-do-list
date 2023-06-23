@@ -64,7 +64,7 @@ function buildSidebar() {
 
     // new groups
     const newGroups = document.createElement("div");
-    newGroups.textContent = "+ Add Group";
+    newGroups.textContent = "+ Add new group";
     newGroups.classList.add("add-newgroup");
     sidebarGroups.appendChild(newGroups);
 
