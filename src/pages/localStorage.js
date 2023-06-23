@@ -1,4 +1,4 @@
-import { differenceInDays, format, parseISO } from "date-fns";
+import { addDays, differenceInDays, format, parseISO } from "date-fns";
 import { createTaskelement } from "./createTasklist";
 
 export function sortLocalstorage() {
@@ -19,16 +19,19 @@ export function displayLocalstorage() {
             // today
             const curDate = new Date();
             // date on task
-            const itemDate = new Date(dataObj.date);
+            let itemDate = new Date(dataObj.date);
+            // fix timezone rounding date by 1 day
+            itemDate = addDays(itemDate, 1);
             // date is defined
             if (dataObj.date != "") {
-                const dateDifference = differenceInDays(itemDate, curDate);
+                const dateDifference = differenceInDays(itemDate.setHours(0, 0, 0, 0), curDate.setHours(0, 0, 0, 0));
+                console.log(dateDifference);
                 // create item
-                createTaskelement(dataObj, dateDifference + 1);
+                createTaskelement(dataObj, dateDifference);
             }
             // date is not defined
             else {
-                createTaskelement(dataObj, false);
+                createTaskelement(dataObj, "NaN");
             }
 
 

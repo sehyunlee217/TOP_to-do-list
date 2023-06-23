@@ -114,7 +114,7 @@ function addForm() {
         taskForm.appendChild(dateInput);
 
         btnContainer.appendChild(addBtn);
-        // btnContainer.appendChild(cancelBtn);
+        btnContainer.appendChild(cancelBtn);
 
         taskForm.appendChild(btnContainer);
 

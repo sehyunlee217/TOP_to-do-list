@@ -55,7 +55,7 @@ export function createTaskelement(obj, dateDifference) {
     taskDuedate.classList.add("due-date");
 
     // if due date is valid,
-    if (dateDifference != false) {
+    if (dateDifference != "NaN") {
         if (dateDifference > 1) {
             taskDuedate.textContent = `In ${ dateDifference } days`;
         }

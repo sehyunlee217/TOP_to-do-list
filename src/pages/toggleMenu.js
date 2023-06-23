@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 function isDisplay() {
     // checks if sidebar is displaying or not
     const contentLoc = document.getElementById("content");
@@ -11,6 +13,15 @@ function isDisplay() {
         // if true, display:true
         return true;
     }
+}
+
+function showDate() {
+    let curDate = new Date();
+    let formatCurdate = format(curDate, "yyyy-MM-dd");
+
+    console.log(curDate);
+    const headerDate = document.getElementById("header-date");
+    headerDate.textContent = `${ formatCurdate }`;
 }
 
 function buildSidebar() {
@@ -93,6 +104,7 @@ function generateMenu() {
 
 // when menu is clicked, show and hide menu page
 function toggleMenu() {
+    showDate();
     // add event listener for when menu button is clicked
     const menuBtn = document.getElementById("menu");
     menuBtn.addEventListener("click", generateMenu);
