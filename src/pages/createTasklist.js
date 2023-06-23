@@ -1,6 +1,6 @@
 import { validate } from "schema-utils";
-import { differenceInDays, format, parseISO } from "date-fns";
 import { data } from "browserslist";
+import displayLocalstorage from "./localStorage";
 
 function markComplete() {
     const taskCheckicon = document.querySelectorAll(".task-check");
@@ -23,41 +23,12 @@ function markComplete() {
             // access data and remove from localStorage
             localStorage.removeItem(itemTitle);
             // refresh task list
-            readLocalstorage();
+            displayLocalstorage();
         });
     });
 }
 
-function readLocalstorage() {
-    // clear displayed items, 
-    const taskListloc = document.querySelector(".task-list");
-    taskListloc.replaceChildren();
-    // then run through items in localstorage
-    for (let i = 0; i < localStorage.length; i++) {
-        let title = localStorage.key(i);
-        if (title != "") {
-            let dataObj = JSON.parse(localStorage.getItem(title));
-            // get difference in days compared to today
-
-            console.log(dataObj);
-
-            // today
-            const curDate = new Date();
-            // date on task
-            const itemDate = new Date(dataObj.date);
-            // date difference
-            // console.log("curDate:", curDate, "\nitemDate:", itemDate);
-            const dateDifference = differenceInDays(itemDate, curDate);
-            // console.log(dateDifference);
-            // create item
-            createTaskelement(dataObj, dateDifference + 1);
-        }
-    }
-    markComplete();
-
-}
-
-function createTaskelement(obj, dateDifference) {
+export function createTaskelement(obj, dateDifference) {
     // display data as blocks as content
     const taskloc = document.querySelector(".task-list");
 
@@ -82,21 +53,30 @@ function createTaskelement(obj, dateDifference) {
 
     const taskDuedate = document.createElement("div");
     taskDuedate.classList.add("due-date");
-    if (dateDifference > 1) {
-        taskDuedate.textContent = `In ${ dateDifference } days`;
-    }
-    else if (dateDifference == 1) {
-        taskDuedate.textContent = "Tommorow";
-    }
-    else if (dateDifference == 0) {
-        taskDuedate.textContent = "Due today";
-    }
-    else if (dateDifference == -1) {
-        taskDuedate.textContent = "Yesterday";
+
+    // if due date is valid,
+    if (dateDifference != false) {
+        if (dateDifference > 1) {
+            taskDuedate.textContent = `In ${ dateDifference } days`;
+        }
+        else if (dateDifference == 1) {
+            taskDuedate.textContent = "Tommorow";
+        }
+        else if (dateDifference == 0) {
+            taskDuedate.textContent = "Due today";
+        }
+        else if (dateDifference == -1) {
+            taskDuedate.textContent = "Yesterday";
+        }
+        else {
+            taskDuedate.textContent = `${ -1 * dateDifference } days ago`;
+        }
     }
     else {
-        taskDuedate.textContent = `${ -1 * dateDifference } days ago`;
+        taskDuedate.textContent = "No due date";
     }
+
+
 
     taskItem.appendChild(taskTitle);
     taskItem.appendChild(taskContent);
@@ -104,9 +84,9 @@ function createTaskelement(obj, dateDifference) {
     taskItem.appendChild(taskDuedate);
     taskItem.appendChild(taskCheck);
     taskloc.appendChild(taskItem);
-}
 
-export default readLocalstorage;
+    markComplete();
+}
 
 // i) move task items to task list. 
 // tasks (done)

@@ -1,9 +1,8 @@
 import "./styles/skeleton.css";
 import toggleMenu from "./pages/toggleMenu";
 import addTask from "./pages/addTasks";
-import createTaskelemenet from "./pages/displayLocalStorage";
-import readLocalstorage from "./pages/displayLocalStorage";
+import displayLocalstorage from "./pages/localStorage";
 
-readLocalstorage();
+displayLocalstorage();
 toggleMenu();
 addTask();

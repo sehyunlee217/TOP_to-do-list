@@ -1,5 +1,13 @@
 import { add } from "date-fns";
-import readLocalstorage from "./displayLocalStorage";
+import displayLocalstorage from "./localStorage";
+
+function storeData(obj) {
+    // local storage can only store data as a string
+    if (obj.title != "") {
+        let dataObjstr = JSON.stringify(obj);
+        localStorage.setItem(obj.title, dataObjstr);
+    }
+}
 
 function showForm(bool) {
     // always display add task form when clicked
@@ -16,13 +24,6 @@ function showForm(bool) {
     }
 }
 
-
-function storeData(obj) {
-    // local storage can only store data as a string
-    let dataObjstr = JSON.stringify(obj);
-    localStorage.setItem(obj.title, dataObjstr);
-}
-
 function readFormdata() {
     const titleInput = document.getElementById("title-input");
     const titleData = titleInput.value;
@@ -33,7 +34,10 @@ function readFormdata() {
     const dateInput = document.getElementById("date-input");
     const dateData = dateInput.value;
 
+    const groupData = document.getElementById("task-content").textContent;
+
     const dataObj = {
+        "group": groupData,
         "title": titleData,
         "content": contentData,
         "date": dateData
@@ -53,31 +57,25 @@ function addForm() {
         // Create form to add task
         const taskForm = document.createElement("form");
         taskForm.setAttribute("id", "taskForm");
-        // taskForm.classList.add("add-task-btn");
 
-        // Title to add task
-        const titleLabel = document.createElement("label");
-        titleLabel.textContent = "Title: ";
+        // container for task & details
 
+        // // Title to add task
         const titleInput = document.createElement("input");
         titleInput.setAttribute("type", "text");
         titleInput.setAttribute("name", "title");
         titleInput.setAttribute("id", "title-input");
+        titleInput.setAttribute("placeholder", "Title");
         // ------------------------------------
 
-        // Content to add task
-        const contentLabel = document.createElement("label");
-        contentLabel.textContent = "Content: ";
-
+        // // Content to add task
         const contentInput = document.createElement("input");
         contentInput.setAttribute("type", "text");
         contentInput.setAttribute("name", "content");
         contentInput.setAttribute("id", "content-input");
-        // ------------------------------------
+        contentInput.setAttribute("placeholder", "Details");
 
-        // Date Selection
-        const dateLabel = document.createElement("label");
-        dateLabel.textContent = "Date: ";
+        // ------------------------------------
 
         const dateInput = document.createElement("input");
         dateInput.setAttribute("type", "date");
@@ -109,17 +107,14 @@ function addForm() {
         // ------------------------------------
 
         // append elements to form
-        taskForm.appendChild(titleLabel);
         taskForm.appendChild(titleInput);
 
-        taskForm.appendChild(contentLabel);
         taskForm.appendChild(contentInput);
 
-        taskForm.appendChild(dateLabel);
         taskForm.appendChild(dateInput);
 
         btnContainer.appendChild(addBtn);
-        btnContainer.appendChild(cancelBtn);
+        // btnContainer.appendChild(cancelBtn);
 
         taskForm.appendChild(btnContainer);
 
@@ -140,8 +135,8 @@ function addForm() {
         form.reset();
         // hide form
         showForm(false);
-        // update feed
-        readLocalstorage();
+        // show feed
+        displayLocalstorage();
     });
 }
 

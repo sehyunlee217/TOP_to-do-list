@@ -47,10 +47,6 @@ function buildSidebar() {
     const next7Tasks = document.createElement("div");
     next7Tasks.textContent = "Next 7 Days";
     homePages.appendChild(next7Tasks);
-    // important
-    const impTasks = document.createElement("div");
-    impTasks.textContent = "Important";
-    homePages.appendChild(impTasks);
 
     // ------------ groups ---------------
     const sidebarGroups = document.createElement("div");
@@ -72,6 +68,7 @@ function buildSidebar() {
     const addGroup = document.createElement("div");
     sidebarGroups.appendChild(addGroup);
     addGroup.classList.add("list-items");
+    // event listener -> add new group when clicked
 
 }
 
