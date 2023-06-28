@@ -523,7 +523,7 @@
     font-size: 1.3rem;
 
     display: grid;
-    grid-template-rows: repeat(3,1fr);
+    grid-template-rows: repeat(auto,1fr);
     grid-template-columns: 1fr 9rem;
     padding: 1rem;
   }
@@ -546,6 +546,10 @@
   .task-check{
     justify-self: center;
     align-self: center;
+  }
+
+  .light-up{
+    color: rgb(40, 101, 136);
   }
 
   .item-title{
@@ -577,7 +581,7 @@
 
   #taskForm{
     display: grid;
-    grid-template-rows: repeat(2,1fr);
+    grid-template-rows: repeat(auto,1fr);
     grid-template-columns: 6fr 2.5rem 9rem;
     row-gap: .5rem ;
     column-gap: .5rem;

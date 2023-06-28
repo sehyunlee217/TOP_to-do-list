@@ -1,5 +1,5 @@
 import { add } from "date-fns";
-import displayLocalstorage from "./localStorage";
+import displayTasks from "./localStorage";
 
 function storeData(obj) {
     // local storage can only store data as a string
@@ -136,7 +136,7 @@ function addForm() {
         // hide form
         showForm(false);
         // show feed
-        displayLocalstorage();
+        displayTasks();
     });
 }
 

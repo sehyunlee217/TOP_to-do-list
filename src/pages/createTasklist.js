@@ -10,10 +10,15 @@ function markComplete() {
         icon.addEventListener("mouseover", () => {
             icon.classList.remove("fa-circle");
             icon.classList.add("fa-circle-check");
+            // light up check circle
+            icon.classList.add("light-up");
+
         });
         icon.addEventListener("mouseout", () => {
             icon.classList.remove("fa-circle-check");
             icon.classList.add("fa-circle");
+            // go back to original state
+            icon.classList.remove("light-up");
         });
 
         // when icon is clicked, 
@@ -79,7 +84,9 @@ export function createTaskelement(obj, dateDifference) {
 
 
     taskItem.appendChild(taskTitle);
-    taskItem.appendChild(taskContent);
+    if (taskContent.textContent != "") {
+        taskItem.appendChild(taskContent);
+    }
     taskItem.appendChild(taskDate);
     taskItem.appendChild(taskDuedate);
     taskItem.appendChild(taskCheck);

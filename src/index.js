@@ -1,8 +1,8 @@
 import "./styles/skeleton.css";
 import toggleMenu from "./pages/toggleMenu";
 import addTask from "./pages/addTasks";
-import displayLocalstorage from "./pages/localStorage";
+import displayLocalstorage, { sortLocalstorage } from "./pages/localStorage";
 
-displayLocalstorage();
+sortLocalstorage();
 toggleMenu();
 addTask();

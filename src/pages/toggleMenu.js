@@ -19,7 +19,6 @@ function showDate() {
     let curDate = new Date();
     let formatCurdate = format(curDate, "yyyy-MM-dd");
 
-    console.log(curDate);
     const headerDate = document.getElementById("header-date");
     headerDate.textContent = `${ formatCurdate }`;
 }
