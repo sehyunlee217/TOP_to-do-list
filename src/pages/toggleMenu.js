@@ -23,6 +23,23 @@ function showDate() {
     headerDate.textContent = `${ formatCurdate }`;
 }
 
+function displayAll() {
+
+}
+function displayToday() {
+
+}
+function displayNext7() {
+
+}
+
+function addGroup() {
+    const newGroupbtn = document.querySelector(".add-newgroup");
+    newGroupbtn.addEventListener("click", () => {
+        console.log("hi");
+    });
+}
+
 function buildSidebar() {
 
     const contentLoc = document.getElementById("content");
@@ -60,6 +77,7 @@ function buildSidebar() {
 
     // ------------ groups ---------------
     const sidebarGroups = document.createElement("div");
+    sidebarGroups.setAttribute("id", "groups");
     sidebarContainer.appendChild(sidebarGroups);
 
     // groups text
@@ -68,17 +86,93 @@ function buildSidebar() {
     groupsTxt.classList.add("title-m");
     sidebarGroups.appendChild(groupsTxt);
 
-    // new groups
-    const newGroups = document.createElement("div");
-    newGroups.textContent = "+ Add new group";
-    newGroups.classList.add("add-newgroup");
-    sidebarGroups.appendChild(newGroups);
+    // new groups container
+    const newGroupContainer = document.createElement("div");
+    newGroupContainer.setAttribute("id", "newgroup-container");
+    sidebarGroups.appendChild(newGroupContainer);
 
     // Add a new group 
     const addGroup = document.createElement("div");
     sidebarGroups.appendChild(addGroup);
-    addGroup.classList.add("list-items");
+    addGroup.classList.add("group-list");
+
+    // new groups
+    const newGroups = document.createElement("div");
+    newGroups.textContent = "+ Add new group";
+    newGroups.classList.add("add-newgroup");
+
+    function showForm(bool) {
+        const addNewgroupbtn = document.querySelector(".add-newgroup");
+        const newGroupform = document.getElementById("group-form");
+
+        // if both variables are declared,
+        if (addNewgroupbtn && newGroupform) {
+            // if true, display form
+            if (bool) {
+                addNewgroupbtn.style.display = "none";
+                newGroupform.style.display = "flex";
+            }
+            // if false, hide form
+            else {
+                addNewgroupbtn.style.display = "flex";
+                newGroupform.style.display = "none";
+            }
+        }
+        else if (addNewgroupbtn && !newGroupform) {
+            console.log("one ");
+        }
+    }
+
+
+
     // event listener -> add new group when clicked
+    newGroups.addEventListener("click", () => {
+        // if form was never created,
+        // create small form to add new group
+        if (newGroupContainer.childElementCount < 2) {
+            newGroups.style.display = "none";
+
+            const newGroupForm = document.createElement("form");
+            newGroupForm.setAttribute("id", "group-form");
+            const nameInput = document.createElement("input");
+            nameInput.setAttribute("type", "text");
+            nameInput.setAttribute("name", "title");
+            nameInput.setAttribute("id", "groupname-input");
+            nameInput.setAttribute("placeholder", "Insert Group Name");
+
+            newGroupForm.appendChild(nameInput);
+            newGroupContainer.appendChild(newGroupForm);
+
+            const addBtn = document.createElement("button");
+            addBtn.setAttribute("type", "button");
+            addBtn.setAttribute("id", "submitBtn");
+            addBtn.textContent = "Add";
+
+            addBtn.addEventListener("click", (e) => {
+                // prevent form from submitting and reseting page
+                const groupNameinput = document.getElementById("groupname-input");
+                const groupNamedata = groupNameinput.value;
+                // clear input when submitting
+                groupNameinput.value = "";
+
+                // add group to grouplist
+                const newGroup = document.createElement("div");
+                newGroup.textContent = groupNamedata;
+                newGroup.classList.add("add-newgroup");
+                addGroup.appendChild(newGroup);
+
+                showForm(false);
+            });
+            newGroupForm.appendChild(addBtn);
+        }
+        else {
+            showForm(true);
+        }
+
+    });
+
+    newGroupContainer.appendChild(newGroups);
+
 
 }
 

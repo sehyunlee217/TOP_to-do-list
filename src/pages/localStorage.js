@@ -30,7 +30,6 @@ export function sortLocalstorage() {
         else {
             return dateA - dateB;
         }
-
     });
 
     displayTasks(dataArray);

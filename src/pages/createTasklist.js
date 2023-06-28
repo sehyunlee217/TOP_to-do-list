@@ -36,6 +36,7 @@ function markComplete() {
 export function createTaskelement(obj, dateDifference) {
     // display data as blocks as content
     const taskloc = document.querySelector(".task-list");
+    const noDueloc = document.getElementById("no-due-date");
 
     const taskItem = document.createElement("div");
     // taskItem.classList.add("add-task-btn");
@@ -59,8 +60,14 @@ export function createTaskelement(obj, dateDifference) {
     const taskDuedate = document.createElement("div");
     taskDuedate.classList.add("due-date");
 
+    taskItem.appendChild(taskTitle);
+    taskItem.appendChild(taskDate);
+    taskItem.appendChild(taskDuedate);
+    taskItem.appendChild(taskCheck);
+
     // if due date is valid,
     if (dateDifference != "NaN") {
+        taskloc.appendChild(taskItem);
         if (dateDifference > 1) {
             taskDuedate.textContent = `In ${ dateDifference } days`;
         }
@@ -78,19 +85,15 @@ export function createTaskelement(obj, dateDifference) {
         }
     }
     else {
+        noDueloc.appendChild(taskItem);
         taskDuedate.textContent = "No due date";
     }
 
 
-
-    taskItem.appendChild(taskTitle);
     if (taskContent.textContent != "") {
         taskItem.appendChild(taskContent);
     }
-    taskItem.appendChild(taskDate);
-    taskItem.appendChild(taskDuedate);
-    taskItem.appendChild(taskCheck);
-    taskloc.appendChild(taskItem);
+
 
     markComplete();
 }
