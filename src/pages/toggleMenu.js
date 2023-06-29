@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { storeGroup } from "./localStorage";
 
 function isDisplay() {
     // checks if sidebar is displaying or not
@@ -98,7 +99,7 @@ function buildSidebar() {
 
     // new groups
     const newGroups = document.createElement("div");
-    newGroups.textContent = "+ Add new group";
+    newGroups.textContent = "+ New group";
     newGroups.classList.add("add-newgroup");
 
     function showForm(bool) {
@@ -122,8 +123,6 @@ function buildSidebar() {
             console.log("one ");
         }
     }
-
-
 
     // event listener -> add new group when clicked
     newGroups.addEventListener("click", () => {
@@ -152,6 +151,8 @@ function buildSidebar() {
                 // prevent form from submitting and reseting page
                 const groupNameinput = document.getElementById("groupname-input");
                 const groupNamedata = groupNameinput.value;
+                // store group name data
+                storeGroup(groupNamedata);
                 // clear input when submitting
                 groupNameinput.value = "";
 
@@ -161,6 +162,11 @@ function buildSidebar() {
                 newGroup.classList.add("add-newgroup");
                 addGroup.appendChild(newGroup);
 
+                newGroup.addEventListener("click", (e) => {
+                    const taskContentloc = document.getElementById("task-content");
+                    taskContentloc.textContent = groupNamedata;
+                });
+
                 showForm(false);
             });
             newGroupForm.appendChild(addBtn);
@@ -168,12 +174,8 @@ function buildSidebar() {
         else {
             showForm(true);
         }
-
     });
-
     newGroupContainer.appendChild(newGroups);
-
-
 }
 
 function generateMenu() {

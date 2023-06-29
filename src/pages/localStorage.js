@@ -1,6 +1,13 @@
 import { addDays, differenceInDays, format, parseISO } from "date-fns";
 import { createTaskelement } from "./createTasklist";
 
+
+export function storeGroup(groupName) {
+    console.log(groupName);
+    const taskContentloc = document.getElementById("task-content");
+    taskContentloc.textContent = groupName;
+}
+
 export function sortLocalstorage() {
     // console.log(localStorage);
     // group contents with group names
@@ -14,12 +21,10 @@ export function sortLocalstorage() {
         let obj = JSON.parse(localStorage.getItem(title));
         dataArray.push(obj);
     }
-
     // function to sort array by date
     dataArray.sort(function (a, b) {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
-        console.log("a:", dateA, "\nb:", dateB);
         if (dateA == "Invalid Date") {
             return dateB - dateA;
             console.log("run");
@@ -31,7 +36,6 @@ export function sortLocalstorage() {
             return dateA - dateB;
         }
     });
-
     displayTasks(dataArray);
 
 }
@@ -39,7 +43,9 @@ export function sortLocalstorage() {
 export function displayTasks(array) {
     // clear displayed items, 
     const taskListloc = document.querySelector(".task-list");
+    const nodueLoc = document.getElementById("no-due-date");
     taskListloc.replaceChildren();
+    nodueLoc.replaceChildren();
     // console.log(array);
 
     for (let data of array) {
