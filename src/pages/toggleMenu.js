@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { storeGroup } from "./localStorage";
+import { displayGroups, storeGroup } from "./localStorage";
 
 function isDisplay() {
     // checks if sidebar is displaying or not
@@ -37,12 +37,29 @@ function displayNext7() {
 function addGroup() {
     const newGroupbtn = document.querySelector(".add-newgroup");
     newGroupbtn.addEventListener("click", () => {
-        console.log("hi");
     });
 }
 
-function buildSidebar() {
+function showForm(bool) {
+    const addNewgroupbtn = document.querySelector(".add-newgroup");
+    const newGroupform = document.getElementById("group-form");
 
+    // if both variables are declared,
+    if (addNewgroupbtn && newGroupform) {
+        // if true, display form
+        if (bool) {
+            addNewgroupbtn.style.display = "none";
+            newGroupform.style.display = "flex";
+        }
+        // if false, hide form
+        else {
+            addNewgroupbtn.style.display = "flex";
+            newGroupform.style.display = "none";
+        }
+    }
+}
+
+function buildSidebar() {
     const contentLoc = document.getElementById("content");
 
     // basic structure
@@ -75,6 +92,10 @@ function buildSidebar() {
     const next7Tasks = document.createElement("div");
     next7Tasks.textContent = "Next 7 Days";
     homePages.appendChild(next7Tasks);
+}
+
+export function generateGroup() {
+    const sidebarContainer = document.getElementById("sidebar");
 
     // ------------ groups ---------------
     const sidebarGroups = document.createElement("div");
@@ -95,34 +116,12 @@ function buildSidebar() {
     // Add a new group 
     const addGroup = document.createElement("div");
     sidebarGroups.appendChild(addGroup);
-    addGroup.classList.add("group-list");
+    addGroup.setAttribute("id", "group-list");
 
     // new groups
     const newGroups = document.createElement("div");
     newGroups.textContent = "+ New group";
     newGroups.classList.add("add-newgroup");
-
-    function showForm(bool) {
-        const addNewgroupbtn = document.querySelector(".add-newgroup");
-        const newGroupform = document.getElementById("group-form");
-
-        // if both variables are declared,
-        if (addNewgroupbtn && newGroupform) {
-            // if true, display form
-            if (bool) {
-                addNewgroupbtn.style.display = "none";
-                newGroupform.style.display = "flex";
-            }
-            // if false, hide form
-            else {
-                addNewgroupbtn.style.display = "flex";
-                newGroupform.style.display = "none";
-            }
-        }
-        else if (addNewgroupbtn && !newGroupform) {
-            console.log("one ");
-        }
-    }
 
     // event listener -> add new group when clicked
     newGroups.addEventListener("click", () => {
@@ -156,17 +155,7 @@ function buildSidebar() {
                 // clear input when submitting
                 groupNameinput.value = "";
 
-                // add group to grouplist
-                const newGroup = document.createElement("div");
-                newGroup.textContent = groupNamedata;
-                newGroup.classList.add("add-newgroup");
-                addGroup.appendChild(newGroup);
-
-                newGroup.addEventListener("click", (e) => {
-                    const taskContentloc = document.getElementById("task-content");
-                    taskContentloc.textContent = groupNamedata;
-                });
-
+                displayGroups();
                 showForm(false);
             });
             newGroupForm.appendChild(addBtn);
@@ -176,7 +165,7 @@ function buildSidebar() {
         }
     });
     newGroupContainer.appendChild(newGroups);
-}
+};
 
 function generateMenu() {
     // check if sidebar is not generated, build sidebar
@@ -200,6 +189,8 @@ function generateMenu() {
 // when menu is clicked, show and hide menu page
 function toggleMenu() {
     showDate();
+    generateMenu();
+    generateGroup();
     // add event listener for when menu button is clicked
     const menuBtn = document.getElementById("menu");
     menuBtn.addEventListener("click", generateMenu);
