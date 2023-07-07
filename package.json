@@ -109,9 +109,9 @@
     "url": "git+https://github.com/sehyunlee217/TOP_to-do-list.git"
   },
   "bugs": {
-    "url": "git+https://github.com/sehyunlee217/TOP_to-do-list/issues"
+    "url": "https://github.com/sehyunlee217/TOP_to-do-list/issues"
   },
-  "homepage": "git+https://github.com/sehyunlee217/TOP_to-do-list/gh-pages",
+  "homepage": "https://github.com/sehyunlee217/TOP_to-do-list/gh-pages",
   "keywords": [],
   "author": "",
   "license": "ISC"
