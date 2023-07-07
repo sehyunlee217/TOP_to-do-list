@@ -119,8 +119,6 @@ function displayNext7() {
                 // date is defined
                 if (item.date != "") {
                     const dateDifference = differenceInDays(itemDate.setHours(0, 0, 0, 0), curDate.setHours(0, 0, 0, 0));
-
-                    console.log(dateDifference);
                     // create item
                     if (dateDifference <= 7) {
                         next7Tasks.push(JSON.parse(item));
