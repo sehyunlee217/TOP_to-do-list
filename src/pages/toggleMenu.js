@@ -1,5 +1,6 @@
-import { format } from "date-fns";
-import { displayGroups, storeGroup } from "./localStorage";
+import { displayAllgroups, displayTasks, storeGroup } from "./localStorage";
+import { addDays, differenceInDays, format, parseISO } from "date-fns";
+
 
 function isDisplay() {
     // checks if sidebar is displaying or not
@@ -25,12 +26,94 @@ function showDate() {
 }
 
 function displayAll() {
+    const displayAllbtn = document.getElementById("all-tasks");
 
+    displayAllbtn.addEventListener("click", (e) => {
+        const taskContentloc = document.getElementById("task-content");
+        taskContentloc.textContent = "All Tasks";
+        // ii) should display all tasks with that group name
+        const allTasksarray = [];
+        const localStorageData = Object.values(localStorage);
+
+        localStorageData.forEach(item => {
+            // if item in local storage is a task,
+            if (typeof (JSON.parse(item)) === "object") {
+                allTasksarray.push(JSON.parse(item));
+            }
+        });
+
+        displayTasks(allTasksarray);
+    });
 }
+
 function displayToday() {
+    const displayTodaybtn = document.getElementById("tasks-today");
+
+    displayTodaybtn.addEventListener("click", (e) => {
+        const taskContentloc = document.getElementById("task-content");
+        taskContentloc.textContent = "Today";
+        // ii) should display all tasks with that group name
+        const todayTasks = [];
+        const localStorageData = Object.values(localStorage);
+
+        localStorageData.forEach(item => {
+            // if item in local storage is a task,
+            if (typeof (JSON.parse(item)) === "object") {
+                // get difference in days compared to today
+                // today
+                const curDate = new Date();
+                // date on task
+                let itemDate = new Date(JSON.parse(item).date);
+                // fix timezone rounding date by 1 day
+                itemDate = addDays(itemDate, 1);
+                // date is defined
+                if (item.date != "") {
+                    const dateDifference = differenceInDays(itemDate.setHours(0, 0, 0, 0), curDate.setHours(0, 0, 0, 0));
+                    // create item
+                    if (dateDifference == 0) {
+                        todayTasks.push(JSON.parse(item));
+                    }
+                }
+            }
+        });
+        displayTasks(todayTasks);
+    });
 
 }
 function displayNext7() {
+    const displayNext7btn = document.getElementById("tasks-in-7days");
+
+    displayNext7btn.addEventListener("click", (e) => {
+        const taskContentloc = document.getElementById("task-content");
+        taskContentloc.textContent = "Next 7 Days";
+        // ii) should display all tasks with that group name
+        const next7Tasks = [];
+        const localStorageData = Object.values(localStorage);
+
+        localStorageData.forEach(item => {
+            // if item in local storage is a task,
+            if (typeof (JSON.parse(item)) === "object") {
+                // get difference in days compared to today
+                // today
+                const curDate = new Date();
+                // date on task
+                let itemDate = new Date(JSON.parse(item).date);
+                // fix timezone rounding date by 1 day
+                itemDate = addDays(itemDate, 1);
+                // date is defined
+                if (item.date != "") {
+                    const dateDifference = differenceInDays(itemDate.setHours(0, 0, 0, 0), curDate.setHours(0, 0, 0, 0));
+
+                    console.log(dateDifference);
+                    // create item
+                    if (dateDifference <= 7) {
+                        next7Tasks.push(JSON.parse(item));
+                    }
+                }
+            }
+        });
+        displayTasks(next7Tasks);
+    });
 
 }
 
@@ -83,14 +166,17 @@ function buildSidebar() {
     // all tasks
     const allTasks = document.createElement("div");
     allTasks.textContent = "All Tasks";
+    allTasks.setAttribute("id", "all-tasks");
     homePages.appendChild(allTasks);
     // today
     const todayTasks = document.createElement("div");
     todayTasks.textContent = "Today";
+    todayTasks.setAttribute("id", "tasks-today");
     homePages.appendChild(todayTasks);
     // next 7 days
     const next7Tasks = document.createElement("div");
     next7Tasks.textContent = "Next 7 Days";
+    next7Tasks.setAttribute("id", "tasks-in-7days");
     homePages.appendChild(next7Tasks);
 }
 
@@ -155,7 +241,7 @@ export function generateGroup() {
                 // clear input when submitting
                 groupNameinput.value = "";
 
-                displayGroups();
+                displayAllgroups();
                 showForm(false);
             });
             newGroupForm.appendChild(addBtn);
@@ -191,6 +277,9 @@ function toggleMenu() {
     showDate();
     generateMenu();
     generateGroup();
+    displayAll();
+    displayToday();
+    displayNext7();
     // add event listener for when menu button is clicked
     const menuBtn = document.getElementById("menu");
     menuBtn.addEventListener("click", generateMenu);

@@ -1,6 +1,6 @@
 import { validate } from "schema-utils";
 import { data } from "browserslist";
-import displayLocalstorage from "./localStorage";
+import displayTaskbyGroup from "./localStorage";
 
 function markComplete() {
     const taskCheckicon = document.querySelectorAll(".task-check");
@@ -28,7 +28,8 @@ function markComplete() {
             // access data and remove from localStorage
             localStorage.removeItem(itemTitle);
             // refresh task list
-            displayLocalstorage();
+            const groupName = document.getElementById("task-content").textContent;
+            displayTaskbyGroup(groupName);
         });
     });
 }

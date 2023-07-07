@@ -1,5 +1,5 @@
 import { add } from "date-fns";
-import displayTasks from "./localStorage";
+import displayTasks, { displayTaskbygroup } from "./localStorage";
 
 function storeData(obj) {
     // local storage can only store data as a string
@@ -137,6 +137,9 @@ function addForm() {
         showForm(false);
         // show feed
         displayTasks();
+
+        const groupData = document.getElementById("task-content").textContent;
+        displayTaskbygroup(groupData);
     });
 }
 

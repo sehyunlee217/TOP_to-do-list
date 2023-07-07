@@ -2,19 +2,19 @@ import { addDays, differenceInDays, format, parseISO } from "date-fns";
 import { createTaskelement } from "./createTasklist";
 import { generateGroup } from "./toggleMenu";
 
+
 function storeGroupstr(str) {
     localStorage.setItem(str, JSON.stringify(str));
 }
-
 
 export function storeGroup(groupName) {
     storeGroupstr(groupName);
     const taskContentloc = document.getElementById("task-content");
     taskContentloc.textContent = groupName;
+    displayTaskbygroup(groupName);
 }
 
 export function sortLocalstorage() {
-    // console.log(localStorage);
     // group contents with group names
     // convert local storage to array
     // declare empty array to store objects to sort later
@@ -35,7 +35,6 @@ export function sortLocalstorage() {
         const dateB = new Date(b.date);
         if (dateA == "Invalid Date") {
             return dateB - dateA;
-            console.log("run");
         }
         else if (dateB == "Invalid Date") {
             return dateA - dateB;
@@ -46,10 +45,32 @@ export function sortLocalstorage() {
     });
 
     displayTasks(dataArray);
-    displayGroups();
+    displayAllgroups();
 }
 
-export function displayGroups() {
+export function displayTaskbygroup(groupName) {
+
+    // MOVE THIS SECTION TO A NEW FUNCTION SO THAT WHEN storegroup() is called,
+    // IT READS displayTaskbyGroup("name of group") and prints it!
+
+    // i) should group name should be displayed in content
+    const taskContentloc = document.getElementById("task-content");
+    taskContentloc.textContent = groupName;
+    // ii) should display all tasks with that group name
+    const arrayForgroup = [];
+    const localStorageData = Object.values(localStorage);
+
+    localStorageData.forEach(item => {
+        // if item in local storage is a task,
+        if (typeof (JSON.parse(item)) === "object" && JSON.parse(item).group === groupName) {
+            arrayForgroup.push(JSON.parse(item));
+        }
+    });
+    displayTasks(arrayForgroup);
+
+}
+
+export function displayAllgroups() {
     // generate menu functionality
 
     // read group data from local storage
@@ -77,12 +98,21 @@ export function displayGroups() {
             // i) should group name should be displayed in content
             const taskContentloc = document.getElementById("task-content");
             taskContentloc.textContent = groupName;
-
             // ii) should display all tasks with that group name
+            const arrayForgroup = [];
+            const localStorageData = Object.values(localStorage);
 
+            localStorageData.forEach(item => {
+                // if item in local storage is a task,
+                if (typeof (JSON.parse(item)) === "object" && JSON.parse(item).group === groupName) {
+                    arrayForgroup.push(JSON.parse(item));
+                }
+            });
+            displayTasks(arrayForgroup);
         });
     }
 }
+
 
 export function displayTasks(array) {
     // clear displayed items, 
@@ -110,7 +140,6 @@ export function displayTasks(array) {
             createTaskelement(data, "NaN");
         }
     }
-
 }
 
 
