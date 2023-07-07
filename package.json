@@ -99,7 +99,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack",
     "dev": "webpack serve",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
@@ -111,6 +111,7 @@
   "bugs": {
     "url": "git+https://github.com/sehyunlee217/TOP_to-do-list/issues"
   },
+  "homepage": "git+https://github.com/sehyunlee217/TOP_to-do-list/gh-pages",
   "keywords": [],
   "author": "",
   "license": "ISC"
