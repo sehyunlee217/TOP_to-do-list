@@ -1,6 +1,6 @@
 import { addDays, differenceInDays, format, parseISO } from "date-fns";
 import { createTaskelement } from "./createTasklist";
-import { generateGroup } from "./toggleMenu";
+import { generateGroup, showAddtaskbtn } from "./toggleMenu";
 
 
 function storeGroupstr(str) {
@@ -95,6 +95,7 @@ export function displayAllgroups() {
 
         // for each group element when clicked,
         newGroup.addEventListener("click", (e) => {
+            showAddtaskbtn(true);
             // i) should group name should be displayed in content
             const taskContentloc = document.getElementById("task-content");
             taskContentloc.textContent = groupName;
@@ -112,7 +113,6 @@ export function displayAllgroups() {
         });
     }
 }
-
 
 export function displayTasks(array) {
     // clear displayed items, 

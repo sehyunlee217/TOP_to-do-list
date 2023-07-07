@@ -2,6 +2,17 @@ import { displayAllgroups, displayTasks, storeGroup } from "./localStorage";
 import { addDays, differenceInDays, format, parseISO } from "date-fns";
 
 
+export function showAddtaskbtn(bool) {
+    // hide add task functionality / bugs with creating tasks with group named "Today"
+    const addTaskBtn = document.querySelector(".add-task-btn");
+    if (bool) {
+        addTaskBtn.style.display = "flex";
+    }
+    else {
+        addTaskBtn.style.display = "none";
+    }
+}
+
 function isDisplay() {
     // checks if sidebar is displaying or not
     const contentLoc = document.getElementById("content");
@@ -29,6 +40,7 @@ function displayAll() {
     const displayAllbtn = document.getElementById("all-tasks");
 
     displayAllbtn.addEventListener("click", (e) => {
+        showAddtaskbtn(true);
         const taskContentloc = document.getElementById("task-content");
         taskContentloc.textContent = "All Tasks";
         // ii) should display all tasks with that group name
@@ -50,6 +62,8 @@ function displayToday() {
     const displayTodaybtn = document.getElementById("tasks-today");
 
     displayTodaybtn.addEventListener("click", (e) => {
+        showAddtaskbtn(false);
+
         const taskContentloc = document.getElementById("task-content");
         taskContentloc.textContent = "Today";
         // ii) should display all tasks with that group name
@@ -84,6 +98,8 @@ function displayNext7() {
     const displayNext7btn = document.getElementById("tasks-in-7days");
 
     displayNext7btn.addEventListener("click", (e) => {
+        showAddtaskbtn(false);
+
         const taskContentloc = document.getElementById("task-content");
         taskContentloc.textContent = "Next 7 Days";
         // ii) should display all tasks with that group name
@@ -228,7 +244,7 @@ export function generateGroup() {
             newGroupContainer.appendChild(newGroupForm);
 
             const addBtn = document.createElement("button");
-            addBtn.setAttribute("type", "button");
+            addBtn.setAttribute("type", "submit");
             addBtn.setAttribute("id", "submitBtn");
             addBtn.textContent = "Add";
 
